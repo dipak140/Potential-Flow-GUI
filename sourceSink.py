@@ -35,6 +35,25 @@ def Source():
 
     return u_source, v_source
 
+def Sink():
+    
+    width = 10.0
+    N = 50 #number of grid points
+    x_start, x_end = -2.0, 2.0 
+    y_start, y_end = -1.0 , 1.0 
+    x = np.linspace(x_start, x_end, N)   ##numbers generated beweeen -2 and 2
+    y = np.linspace(y_start, y_end, N)
+    X , Y = np.meshgrid(x, y)   #creates 50X50 grid for both x and y    
+    sink_strength = -5.0
+    x_sink, y_sink = 1.0,0.0
+    
+    u_sink = sink_strength/(2 * math.pi) * (X - x_sink)/((X - x_sink)**2 + (Y - y_sink)**2)
+    v_sink = sink_strength/(2 * math.pi) * (Y - y_sink)/((X - x_sink)**2 + (Y - y_sink)**2)
+
+    return u_sink, v_sink
+
+
+
 """
 width = 10.0
 height= (y_end- y_start) /(x_end - x_start) * width
