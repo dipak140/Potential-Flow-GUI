@@ -52,6 +52,11 @@ def Sink():
 
     return u_sink, v_sink
 
+def streamFunction(strength, xs, ys, X,Y):
+    
+    psi = strength / (2 * np.pi) * np.arctan2((Y - ys), (X - xs))    
+    return psi
+
 
 
 """
