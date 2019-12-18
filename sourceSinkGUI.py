@@ -20,9 +20,11 @@ root.wm_title("Source Sink")
 root.geometry('1500x850')
 
 ###importing values for source and sink
+
 u_source, v_source = sourceSink.Source()
 X, Y = sourceSink.pos()
 u_sink, v_sink = sourceSink.Sink()
+
 #######################################
 #########Function to  plot the graph #########################################
 
@@ -34,9 +36,16 @@ def plotgraph(X, Y, u_source, v_source, f1):
     canvas.draw()
     #canvas.get_tk_widget().pack(side=tkinter.RIGHT, fill=tkinter.NONE, expand=0)
     canvas.get_tk_widget().grid(row = 2, column = 3, sticky = S)
+
+def getSourceStrength(f1):
+    source_strength = Entry.get(sourceStrength_entry)
+    #source_strength = float(source_strength)
+    u_source, v_source = sourceSink.SourceTry((source_strength))
+    X, Y = sourceSink.pos()
+    plotgraph(X, Y, u_source, v_source, f1)
     
 
-#Make the notebook
+    #Make the notebook
 nb = ttk.Notebook(root)
 #Make 1st tab
 f1 = tkinter.Frame(nb)
@@ -44,9 +53,9 @@ f1 = tkinter.Frame(nb)
 nb.add(f1, text="                     Source                       ")
 sourceStrength_label = Label(f1, text = 'Source Strength', font=('bold, 10'))
 sourceStrength_label.grid(row = 1, column =0, sticky = W, pady = 30, padx =10)
-sourceStrength_entry = Entry(f1, textvariable = DoubleVar())
+sourceStrength_entry = Entry(f1, textvariable = StringVar())
 sourceStrength_entry.grid(row = 1, column=1, sticky = W)
-sourceStrength_button = tkinter.Button(master = f1, text = "Submit")
+sourceStrength_button = tkinter.Button(master = f1, text = "Submit", command = getSourceStrength(f1))
 sourceStrength_button.grid(row = 1 , column = 2, sticky = W, padx =10)
 
 plotgraph(X, Y, u_source, v_source, f1)
@@ -134,6 +143,15 @@ sinkStrength_button = tkinter.Button(master = f4, text = "Submit")
 sinkStrength_button.grid(row = 3 , column = 2, sticky = W, padx =10)
 
 plotgraph(X, Y, u_SF, v_SF, f4)
+
+
+def _quit():
+    root.quit()     # stops mainloop
+    root.destroy()  # this is necessary on Windows to prevent
+                    # Fatal Python Error: PyEval_RestoreThread: NULL tstate
+
+quitButton = tkinter.Button(master=root, text="Quit", command=_quit)
+quitButton.grid(row = 4, column = 3, sticky = W )
 
 ###############################################################################
 nb.select(f1)
