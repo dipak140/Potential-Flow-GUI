@@ -27,13 +27,30 @@ def Source():
     x = np.linspace(x_start, x_end, N)   ##numbers generated beweeen -2 and 2
     y = np.linspace(y_start, y_end, N)
     X , Y = np.meshgrid(x, y)   #creates 50X50 grid for both x and y    
-    source_strength = 5.0
     x_source, y_source = 0.0,0.0
-    
-    u_source = source_strength/(2 * math.pi) * (X - x_source)/((X - x_source)**2 + (Y - y_source)**2)
-    v_source = source_strength/(2 * math.pi) * (Y - y_source)/((X - x_source)**2 + (Y - y_source)**2)
+    source_strength = 5.0
+    u_source = (source_strength)/(2 * math.pi) * (X - x_source)/((X - x_source)**2 + (Y - y_source)**2)
+    v_source = (source_strength)/(2 * math.pi) * (Y - y_source)/((X - x_source)**2 + (Y - y_source)**2)
 
     return u_source, v_source
+
+def SourceTry(source_strength):
+    
+    width = 10.0
+    N = 50 #number of grid points
+    x_start, x_end = -2.0, 2.0 
+    y_start, y_end = -1.0 , 1.0 
+    x = np.linspace(x_start, x_end, N)   ##numbers generated beweeen -2 and 2
+    y = np.linspace(y_start, y_end, N)
+    X , Y = np.meshgrid(x, y)   #creates 50X50 grid for both x and y    
+    x_source, y_source = 0.0,0.0
+    source_strength = float(source_strength)
+    u_source = (source_strength)/(2 * math.pi) * (X - x_source)/((X - x_source)**2 + (Y - y_source)**2)
+    v_source = (source_strength)/(2 * math.pi) * (Y - y_source)/((X - x_source)**2 + (Y - y_source)**2)
+
+    return u_source, v_source
+
+
 
 def Sink():
     
